@@ -11,10 +11,15 @@ function describe(thingBeingDescribed, assertion) {
 function isEqual(a, b) {
   if (a === b) {
     console.log('PASS');
-    return true;
   } else {
-    console.log('FAIL');
-    console.log(a + ' != ' + b);
-    return false;
+    console.log('FAIL ' + a + ' != ' + b);
   }
 };
+
+function isTrue(a) {
+  if (a === true) {
+    console.log('PASS');
+  } else {
+    console.log(`FAIL` + a + `is false`)
+  }
+}
