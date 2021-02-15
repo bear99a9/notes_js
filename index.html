@@ -1,4 +1,40 @@
-<h1> Hello World </h1>
-<script src="./lib/testFunctions.js"></script>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Notes</h1>
+    <form name="myForm" onsubmit="return submitNote()" method="post">
+      <input type="text" name="note" value="" placeholder="Enter note here">
+      <input id="message" type="submit" name="" value="Submit">
+    </form>
+    <div id="messageOutput">
+    </div>
+    <script type="src/interface.js"></script>
+    <script>
+    makeSubmitSayMessage();
+
+    function makeSubmitSayMessage() {
+      document
+        .getElementById("message")
+        .addEventListener("click", function(clickEvent) {
+          clickEvent.preventDefault();
+          sayMessage();
+        });
+    };
+
+    function sayMessage() {
+      let x = document.forms["myForm"]["note"].value;
+      document
+        .getElementById("messageOutput")
+        .innerHTML = x;
+    };
+    </script>
+  </body>
+</html>
+
+<!-- <script src="./lib/testFunctions.js"></script>
 <script src='./src/notes.js'></script>
-<script src='./spec/notesSpec.js'></script>
+<script src='./spec/notesSpec.js'></script> -->
