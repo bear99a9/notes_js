@@ -41,8 +41,5 @@ describe('addition', function () {
   it('checks if Salar is true', () => {
     let calculator = new Calculator();
     isTrue(calculator.salar());
-  })
+  });
 });
-
-
-
