@@ -1,40 +1,37 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <h1>Notes</h1>
-    <form name="myForm" onsubmit="return submitNote()" method="post">
-      <input type="text" name="note" value="" placeholder="Enter note here">
-      <input id="message" type="submit" name="" value="Submit">
-    </form>
-    <div id="messageOutput">
-    </div>
-    <script type="src/interface.js"></script>
-    <script>
-    makeSubmitSayMessage();
+<html lang="en">
 
-    function makeSubmitSayMessage() {
-      document
-        .getElementById("message")
-        .addEventListener("click", function(clickEvent) {
-          clickEvent.preventDefault();
-          sayMessage();
-        });
-    };
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="./src/style.css">
+  <title>Notes</title>
+</head>
 
-    function sayMessage() {
-      let x = document.forms["myForm"]["note"].value;
-      document
-        .getElementById("messageOutput")
-        .innerHTML = x;
-    };
-    </script>
-  </body>
+
+<body>
+  <header>
+    <h1> Notes </h1>
+  </header>
+  <form>
+    <input type="text" class="message-input" />
+    <button class="message-button" type="submit">
+      <i class="fas fa-plus-square"></i>
+    </button>
+  </form>
+  <div class="message-container">
+    <ul class="message-list">
+    </ul>
+  </div>
+  <script src="./src/notes.js"></script>
+  <script src="./src/app.js"></script>
+  <script src="./lib/testFunctions.js"></script>
+  <script src="./spec/notesSpec.js"></script>
+
+</body>
+
 </html>
-
-<!-- <script src="./lib/testFunctions.js"></script>
-<script src='./src/notes.js'></script>
-<script src='./spec/notesSpec.js'></script> -->
