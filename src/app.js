@@ -6,7 +6,8 @@ const messageList = document.querySelector('.message-list');
 const notes = new Notes();
 //Event listeners
 messageButton.addEventListener('click', addMessage);
-linkButton.addEventListener('click', link);
+messageList.addEventListener('click', deleteComplete);
+// linkButton.addEventListener('click', link);
 
 //functions
 
@@ -41,13 +42,33 @@ function addMessage(event) {
   completedButton.innerHTML = '<i class = "fas fa-check"></i>';
   completedButton.classList.add('complete-button');
   messageDiv.appendChild(completedButton);
-  // //Check delete button
-  // const deleteButton = document.createElement('button');
-  // deleteButton.innerHTML = '<i class = "fas fa-trash"></i>';
-  // deleteButton.classList.add("delete-button");
-  // messageDiv.appendChild(deleteButton);
+  //Check delete button
+  const deleteButton = document.createElement('button');
+  deleteButton.innerHTML = '<i class = "fas fa-trash"></i>';
+  deleteButton.classList.add("delete-button");
+  messageDiv.appendChild(deleteButton);
 }
 
-function link(event) {
-  linkButton.innerHTML = '<section> hi </section>';
+// function link(event) {
+//   linkButton.innerHTML = '<section> hi </section>';
+// }
+
+function deleteComplete(event) {
+  const item = event.target;
+  //Delete message
+  if (item.classList[0] === 'delete-button') {
+    const message = item.parentElement;
+    //Animation for it falling
+    message.classList.add("fall");
+    //With this is will then wait for it to fall and then execute the remove function
+    message.addEventListener('transitionend', function () {
+      message.remove();
+    })
+
+  }
+  // complete message
+  if (item.classList[0] === 'complete-button') {
+    const message = item.parentElement;
+    message.classList.toggle("completed");
+  }
 }
