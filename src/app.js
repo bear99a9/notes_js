@@ -49,6 +49,5 @@ function addMessage(event) {
 }
 
 function link(event) {
-  event.preventDefault();
   linkButton.innerHTML = '<section> hi </section>';
 }
