@@ -92,8 +92,20 @@ function deleteCompleteLink(event) {
   }
 
   if (item.classList[0] === 'link-button') {
+    const message = item.parentElement;
     const mainContent = document.getElementById('main-content');
-    mainContent.innerHTML = notes.displayLastMessage();
+    let notes;
+    // if (localStorage.getItem('notes') === null) {
+    //   notes = [];
+    // } else {
+    notes = JSON.parse(localStorage.getItem('notes'));
+    // }
+    const messageIndex = message.children[0].innerText;
+    for( let i = 1; i < notes.length + 1 ; i++ ){
+      let relevant_index = notes.indexOf(messageIndex) + i;
+      mainContent.innerHTML = notes[relevant_index];
+    }
+    // localStorage.setItem('notes', JSON.stringify(notes));
   }
 }
 
