@@ -68,7 +68,7 @@ form button:hover{
 .message li{
     flex:1;
 }
-.delete-button, .complete-button{
+.delete-button, .complete-button, .link-button{
     background:#d6614ce7;
     color: white;
     border: none;
@@ -79,12 +79,17 @@ form button:hover{
     background:rgb(160, 238, 158);
 }
 
+.link-button{
+  background: blue;
+}
+
 .message-item {
     padding:0rem 0.5rem;
 }
 
-.fa-delete, 
-.fa-complete {
+.fa-delete,
+.fa-complete
+.fa-link{
 pointer-events: none;
 }
 .completed{
@@ -94,4 +99,10 @@ pointer-events: none;
 .fall{
     transform: translateY(5rem) rotateZ(20deg);
     opacity: 0 ;
+}
+
+#main-content {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
 }
