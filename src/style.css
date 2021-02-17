@@ -102,7 +102,7 @@ pointer-events: none;
 }
 
 #main-content {
-  /* display: flex;
+  display: flex;
   justify-content: center;
-  align-items: center; */
+  align-items: center;
 }

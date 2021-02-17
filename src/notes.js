@@ -12,6 +12,6 @@ class Notes {
   }
 
   displayMessageTitle() {
-    return this.message[this.message.length - 1]  .substring(0, 20);
+    return this.message[this.message.length - 1].substring(0, 20);
   }
 }

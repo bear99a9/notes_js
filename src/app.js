@@ -71,7 +71,7 @@ function addMessage(event) {
 
 function deleteCompleteLink(event) {
   const item = event.target;
-
+  console.log(item);
   //Delete message
   if (item.classList[0] === 'delete-button') {
     const message = item.parentElement;
@@ -93,7 +93,7 @@ function deleteCompleteLink(event) {
 
   if (item.classList[0] === 'link-button') {
     const mainContent = document.getElementById('main-content');
-    mainContent.innerHTML = '<p> note here! </p>';
+    mainContent.innerHTML = notes.displayLastMessage();
   }
 }
 
@@ -183,8 +183,11 @@ function removeLocalNotes(message) {
   //notes.indexOf will give us back the position of the element
   //using the splice method it can then remove that element.
   //the ,1 says we remove one element
+  console.log(message.children[0]);
   const messageIndex = message.children[0].innerText;
+  console.log(messageIndex);
   notes.splice(notes.indexOf(messageIndex), 1);
   //pushes the deleted back to the storage
+
   localStorage.setItem('notes', JSON.stringify(notes));
 }
