@@ -89,7 +89,7 @@ function addMessage(event) {
 
   //ADD MESSAGE TO LOCAL STORAGE
   saveLocalNotes(messageInput.value);
-  saveLocalTitles(messageInput.value.substring(0,20));
+  saveLocalTitles(messageInput.value.substring(0, 20));
 
   // newMessage.innerHTML = '<p>jay </p>';
   // Check mark button
@@ -130,7 +130,8 @@ function deleteCompleteLink(event) {
 
     //Animation for it falling
     message.classList.add('fall');
-    removeLocalNotes(message); //This is part of removing the message from the local storage
+    removeLocalNotes(message);
+    removeLocalTitles(message);//This is part of removing the message from the local storage
     //With this is will then wait for it to fall and then execute the remove function
     message.addEventListener('transitionend', function () {
       message.remove();
@@ -267,4 +268,27 @@ function removeLocalNotes(message) {
   //pushes the deleted back to the storage
 
   localStorage.setItem('notes', JSON.stringify(notes));
+}
+
+function removeLocalTitles(message) {
+  //Once again to check if messages have been stored
+  let titles;
+  if (localStorage.getItem('notes-titles') === null) {
+    titles = [];
+  } else {
+    //This assumes that you already have something there and you will 'parse'/take it back and create it into an array
+    titles = JSON.parse(localStorage.getItem('notes'));
+  }
+  //the message.children brings us back the message item, complete button and the delete button,
+  //if we use [0] as our position we are able to use the li.message-item which stores the text. The div is the parent
+  //notes.indexOf will give us back the position of the element
+  //using the splice method it can then remove that element.
+  //the ,1 says we remove one element
+  console.log(message.children[0]);
+  const messageIndex = message.children[0].innerText;
+  console.log(messageIndex);
+  titles.splice(titles.indexOf(messageIndex), 1);
+  //pushes the deleted back to the storage
+
+  localStorage.setItem('notes-titles', JSON.stringify(titles));
 }
