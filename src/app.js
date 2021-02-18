@@ -7,10 +7,18 @@ const notes = new Notes();
 
 //Event listeners
 document.addEventListener('DOMContentLoaded', getNotes); //If everything loads up run the function of getNotes
+// document.addEventListener('DOMContentLoaded', displaySavedMessages); //If everything loads up run the function of displayLastMessage
 messageButton.addEventListener('click', addMessage);
 messageList.addEventListener('click', deleteCompleteLink);
 
+// need new funtion of display mesage that should link the local storage to the notes.js array and call the notes from the array
+//then allow page to addMessage function
 //functions
+
+function displaySavedMessages() {
+  getNotes();
+}
+
 function addMessage(event) {
   notes.createMessage(messageInput.value);
   console.log(notes);
@@ -90,7 +98,7 @@ function deleteCompleteLink(event) {
     const message = item.parentElement;
     message.classList.toggle('completed');
   }
-
+  //link needs changing
   if (item.classList[0] === 'link-button') {
     const message = item.parentElement;
     const mainContent = document.getElementById('main-content');
@@ -101,7 +109,7 @@ function deleteCompleteLink(event) {
     notes = JSON.parse(localStorage.getItem('notes'));
     // }
     const messageIndex = message.children[0].innerText;
-    for( let i = 1; i < notes.length + 1 ; i++ ){
+    for (let i = 1; i < notes.length + 1; i++) {
       let relevant_index = notes.indexOf(messageIndex) + i;
       mainContent.innerHTML = notes[relevant_index];
     }
@@ -139,6 +147,7 @@ function saveLocalNotes(message) {
 //using get notes we are able to display the items on the page
 //
 
+//change getNotes to populate array
 function getNotes() {
   // we do our check again to see if messages have been stored
   let notes;

@@ -14,4 +14,6 @@ class Notes {
   displayMessageTitle() {
     return this.message[this.message.length - 1].substring(0, 20);
   }
+
+  // new function that display saved message titles some sort of iteration over array
 }
