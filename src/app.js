@@ -6,8 +6,7 @@ const messageList = document.querySelector('.message-list');
 const notes = new Notes();
 
 //Event listeners
-document.addEventListener('DOMContentLoaded', getNotes); //If everything loads up run the function of getNotes
-// document.addEventListener('DOMContentLoaded', displaySavedMessages); //If everything loads up run the function of displayLastMessage
+document.addEventListener('DOMContentLoaded', displaySavedMessages); //If everything loads up run the function of getNotes
 messageButton.addEventListener('click', addMessage);
 messageList.addEventListener('click', deleteCompleteLink);
 
@@ -17,6 +16,48 @@ messageList.addEventListener('click', deleteCompleteLink);
 
 function displaySavedMessages() {
   getNotes();
+
+  //Prevent form from submitting so it doesn't refresh the page
+  //when you submit
+  event.preventDefault();
+
+  //Message Div --> creates the box for the text to go into after submitting.
+  const messageDiv = document.createElement('div');
+  messageDiv.classList.add('message');
+
+  //create LI --> Allows you to type your message
+  //and for it to be stored on the list
+  const newMessage = document.createElement('li');
+
+  // You can enter whatever you like for it to be displayed on the page
+  newMessage.innerHTML = notes.displayMessageTitle();
+  console.log(notes.displayMessageTitle());
+  newMessage.classList.add('message-item');
+
+  //applies the info to the to parent messageDiv.
+  messageDiv.appendChild(newMessage);
+
+  // Check mark button
+  const completedButton = document.createElement('button');
+  completedButton.innerHTML = '<i class = "fas fa-check"></i>';
+  completedButton.classList.add('complete-button');
+  messageDiv.appendChild(completedButton);
+
+  //Check delete button
+  const deleteButton = document.createElement('button');
+  deleteButton.innerHTML = '<i class = "fas fa-trash"></i>';
+  deleteButton.classList.add('delete-button');
+  messageDiv.appendChild(deleteButton);
+
+  const linkButton = document.createElement('button');
+  linkButton.innerHTML = '<i class = "fas fa-link"></i>';
+  linkButton.classList.add('link-button');
+  messageDiv.appendChild(linkButton);
+
+
+  //applies the info to the to parent messageList which contains all the info.
+  messageList.appendChild(messageDiv);
+
 }
 
 function addMessage(event) {
@@ -102,18 +143,19 @@ function deleteCompleteLink(event) {
   if (item.classList[0] === 'link-button') {
     const message = item.parentElement;
     const mainContent = document.getElementById('main-content');
-    let notes;
-    // if (localStorage.getItem('notes') === null) {
-    //   notes = [];
-    // } else {
-    notes = JSON.parse(localStorage.getItem('notes'));
-    // }
+    let savedNotes = notes.message;
+    console.log('this is what is in our array:');
+    console.log(savedNotes);
     const messageIndex = message.children[0].innerText;
-    for (let i = 1; i < notes.length + 1; i++) {
-      let relevant_index = notes.indexOf(messageIndex) + i;
-      mainContent.innerHTML = notes[relevant_index];
-    }
-    // localStorage.setItem('notes', JSON.stringify(notes));
+    console.log('this is this the children log:');
+    console.log(message.children[0].innerText);
+    console.log(messageIndex);
+
+    let relevantIndex = savedNotes.indexOf(messageIndex);
+    console.log('this is the relevantIndex:');
+    console.log(relevantIndex);
+    mainContent.innerHTML = savedNotes[relevantIndex];
+
   }
 }
 
@@ -150,40 +192,18 @@ function saveLocalNotes(message) {
 //change getNotes to populate array
 function getNotes() {
   // we do our check again to see if messages have been stored
-  let notes;
+  let savedNotes;
   if (localStorage.getItem('notes') === null) {
-    notes = [];
+    savedNotes = [];
   } else {
-    notes = JSON.parse(localStorage.getItem('notes'));
+    savedNotes = JSON.parse(localStorage.getItem('notes'));
   }
   //loop over them and recreate the whole process of what we've done.
-  notes.forEach(function (message) {
-    //This is everything from line 23-51 except changed line 112 & removed savelocalNotes,
-
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add('message');
-
-    const newMessage = document.createElement('li');
-    newMessage.innerText = message; // no longer need the value from input anymore. Need it from local storage instead where we are running the for each function;
-    newMessage.classList.add('message-item');
-    messageDiv.appendChild(newMessage);
-
-    const completedButton = document.createElement('button');
-    completedButton.innerHTML = '<i class = "fas fa-check"></i>';
-    completedButton.classList.add('complete-button');
-    messageDiv.appendChild(completedButton);
-
-    const deleteButton = document.createElement('button');
-    deleteButton.innerHTML = '<i class = "fas fa-trash"></i>';
-    deleteButton.classList.add('delete-button');
-    messageDiv.appendChild(deleteButton);
-
-    const linkButton = document.createElement('button');
-    linkButton.innerHTML = '<i class = "fas fa-link"></i>';
-    linkButton.classList.add('link-button');
-    messageDiv.appendChild(linkButton);
-
-    messageList.appendChild(messageDiv);
+  savedNotes.forEach(function (note) {
+    console.log('are we in get notes function');
+    notes.message.push(note);
+    console.log(note);
+    console.log(notes.message);
   });
 }
 
