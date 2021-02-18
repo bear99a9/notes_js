@@ -10,12 +10,13 @@ class Notes {
   }
 
   displayLastMessage() {
-    return this.message[this.message.length - 1];
+    return this.title[this.title.length - 1];
   }
 
   displayMessageTitle() {
-    return this.title[this.title.length - 1];
+    return this.title;
   }
+
 
   // new function that display saved message titles some sort of iteration over array
 }

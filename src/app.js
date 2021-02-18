@@ -6,7 +6,8 @@ const messageList = document.querySelector('.message-list');
 const notes = new Notes();
 
 //Event listeners
-document.addEventListener('DOMContentLoaded', displaySavedMessages); //If everything loads up run the function of getNotes
+document.addEventListener('DOMContentLoaded', displaySavedMessages);
+//If everything loads up run the function of getNotes
 messageButton.addEventListener('click', addMessage);
 messageList.addEventListener('click', deleteCompleteLink);
 
@@ -18,48 +19,56 @@ function displaySavedMessages() {
   // localStorage.clear();
   getNotes();
   getTitles();
+  console.log(notes.message);
   //Prevent form from submitting so it doesn't refresh the page
   //when you submit
   event.preventDefault();
 
   //Message Div --> creates the box for the text to go into after submitting.
-  const messageDiv = document.createElement('div');
-  messageDiv.classList.add('message');
+  // var rating = watchList.map(function (e) {
+  //   title: e.Title,
+  //     rating: e.imdbRating
+  // });
 
-  //create LI --> Allows you to type your message
-  //and for it to be stored on the list
-  const newMessage = document.createElement('li');
+  for (let i = 0; i < notes.title.length; i++) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message');
 
-  // You can enter whatever you like for it to be displayed on the page
-  // LINE 34 - may need to be changed
-  newMessage.innerHTML = notes.displayMessageTitle();
-  console.log(notes.displayMessageTitle());
-  newMessage.classList.add('message-item');
+    //create LI --> Allows you to type your message
+    //and for it to be stored on the list
+    const newMessage = document.createElement('li');
 
-  //applies the info to the to parent messageDiv.
-  messageDiv.appendChild(newMessage);
+    // You can enter whatever you like for it to be displayed on the page
+    // LINE 34 - may need to be changed
+    newMessage.innerHTML = notes.displayMessageTitle()[i];
+    console.log(notes.displayMessageTitle());
+    newMessage.classList.add('message-item');
 
-  // Check mark button
-  const completedButton = document.createElement('button');
-  completedButton.innerHTML = '<i class = "fas fa-check"></i>';
-  completedButton.classList.add('complete-button');
-  messageDiv.appendChild(completedButton);
-
-  //Check delete button
-  const deleteButton = document.createElement('button');
-  deleteButton.innerHTML = '<i class = "fas fa-trash"></i>';
-  deleteButton.classList.add('delete-button');
-  messageDiv.appendChild(deleteButton);
-
-  const linkButton = document.createElement('button');
-  linkButton.innerHTML = '<i class = "fas fa-link"></i>';
-  linkButton.classList.add('link-button');
-  messageDiv.appendChild(linkButton);
+    //applies the info to the to parent messageDiv.
+    messageDiv.appendChild(newMessage);
 
 
-  //applies the info to the to parent messageList which contains all the info.
-  messageList.appendChild(messageDiv);
+    // Check mark button
+    const completedButton = document.createElement('button');
+    completedButton.innerHTML = '<i class = "fas fa-check"></i>';
+    completedButton.classList.add('complete-button');
+    messageDiv.appendChild(completedButton);
 
+    //Check delete button
+    const deleteButton = document.createElement('button');
+    deleteButton.innerHTML = '<i class = "fas fa-trash"></i>';
+    deleteButton.classList.add('delete-button');
+    messageDiv.appendChild(deleteButton);
+
+    const linkButton = document.createElement('button');
+    linkButton.innerHTML = '<i class = "fas fa-link"></i>';
+    linkButton.classList.add('link-button');
+    messageDiv.appendChild(linkButton);
+
+
+    //applies the info to the to parent messageList which contains all the info.
+    messageList.appendChild(messageDiv);
+  }
 }
 
 function addMessage(event) {
@@ -80,8 +89,8 @@ function addMessage(event) {
   const newMessage = document.createElement('li');
 
   // You can enter whatever you like for it to be displayed on the page
-  newMessage.innerHTML = notes.displayMessageTitle();
-  console.log(notes.displayMessageTitle());
+  newMessage.innerHTML = notes.displayLastMessage();
+  console.log(notes.displayLastMessage());
   newMessage.classList.add('message-item');
 
   //applies the info to the to parent messageDiv.
