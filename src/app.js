@@ -15,8 +15,9 @@ messageList.addEventListener('click', deleteCompleteLink);
 //functions
 
 function displaySavedMessages() {
+  // localStorage.clear();
   getNotes();
-
+  getTitles();
   //Prevent form from submitting so it doesn't refresh the page
   //when you submit
   event.preventDefault();
@@ -30,6 +31,7 @@ function displaySavedMessages() {
   const newMessage = document.createElement('li');
 
   // You can enter whatever you like for it to be displayed on the page
+  // LINE 34 - may need to be changed
   newMessage.innerHTML = notes.displayMessageTitle();
   console.log(notes.displayMessageTitle());
   newMessage.classList.add('message-item');
@@ -87,6 +89,7 @@ function addMessage(event) {
 
   //ADD MESSAGE TO LOCAL STORAGE
   saveLocalNotes(messageInput.value);
+  saveLocalTitles(messageInput.value.substring(0,20));
 
   // newMessage.innerHTML = '<p>jay </p>';
   // Check mark button
@@ -144,14 +147,14 @@ function deleteCompleteLink(event) {
     const message = item.parentElement;
     const mainContent = document.getElementById('main-content');
     let savedNotes = notes.message;
+    let savedTitles = notes.title;
     console.log('this is what is in our array:');
     console.log(savedNotes);
     const messageIndex = message.children[0].innerText;
-    console.log('this is this the children log:');
-    console.log(message.children[0].innerText);
+    console.log('this is the children log:');
     console.log(messageIndex);
 
-    let relevantIndex = savedNotes.indexOf(messageIndex);
+    let relevantIndex = savedTitles.indexOf(messageIndex);
     console.log('this is the relevantIndex:');
     console.log(relevantIndex);
     mainContent.innerHTML = savedNotes[relevantIndex];
@@ -181,6 +184,22 @@ function saveLocalNotes(message) {
   localStorage.setItem('notes', JSON.stringify(notes));
 }
 
+function saveLocalTitles(title) {
+  //Check - Are things already being stored?
+
+  let titles;
+  //checks if notes exist --> if = null/doesn't exist, then we want to create an empty array.
+  if (localStorage.getItem('notes-titles') === null) {
+    titles = [];
+  } else {
+    //This assumes that you already have something there and you will 'parse'/take it back and create it into an array
+    titles = JSON.parse(localStorage.getItem('notes-titles'));
+  }
+
+  titles.push(title);
+  localStorage.setItem('notes-titles', JSON.stringify(titles));
+}
+
 //The below allows you to clear the items in the local storage in the console
 //You may need to hash out the above for it to work
 // localStorage.clear();
@@ -202,6 +221,23 @@ function getNotes() {
   savedNotes.forEach(function (note) {
     console.log('are we in get notes function');
     notes.message.push(note);
+    console.log(note);
+    console.log(notes.message);
+  });
+}
+
+function getTitles() {
+  // we do our check again to see if messages have been stored
+  let savedTitles;
+  if (localStorage.getItem('notes-titles') === null) {
+    savedTitles = [];
+  } else {
+    savedTitles = JSON.parse(localStorage.getItem('notes-titles'));
+  }
+  //loop over them and recreate the whole process of what we've done.
+  savedTitles.forEach(function (note) {
+    console.log('are we in get notes function');
+    notes.title.push(note);
     console.log(note);
     console.log(notes.message);
   });
